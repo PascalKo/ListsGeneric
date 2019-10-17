@@ -5,11 +5,11 @@ using System.Text;
 
 namespace Lists.ListLogic
 {
-    class MyLIstEnumerable : IEnumerator
+    class MyLIstEnumerable<T> : IEnumerator
     {
-        private Node _data;
-        private Node _pos = null;
-        public MyLIstEnumerable(Node data)
+        private Node<T> _data;
+        private Node<T> _pos = null;
+        public MyLIstEnumerable(Node<T> data)
         {
             if (data == null)
             {

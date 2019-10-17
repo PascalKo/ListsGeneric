@@ -7,9 +7,9 @@ namespace Lists.ListLogic
     /// Die Liste verwaltet beliebige Elemente und implementiert
     /// das IList-Interface und damit auch ICollection und IEnumerable
     /// </summary>
-    public class MyList : IList
+    public class MyList<T> : IList
     {
-        Node Head { get; set; }
+        Node<T> Head { get; set; }
 
 
 
@@ -22,20 +22,20 @@ namespace Lists.ListLogic
         /// </summary>
         /// <param name="value">Einzufügender Datensatz</param>
         /// <returns>Index des Werts in der Liste</returns>
-        public int Add(object value)
+        public int Add(T value)
         {
             if (Head == null)
             {
-                Head = new Node(value);
+                Head = new Node<T>(value);
             }
             else
             {
-                Node tmp = Head;
+                Node<T> tmp = Head;
                 while (tmp.Next != null)
                 {
                     tmp = tmp.Next;
                 }
-                tmp.Next = new Node(value);
+                tmp.Next = new Node<T>(value);
             }
             return Count - 1;
         }
@@ -54,7 +54,7 @@ namespace Lists.ListLogic
         /// </summary>
         /// <param name="value">gesuchter DataObject</param>
         /// <returns></returns>
-        public bool Contains(object value)
+        public bool Contains(T value)
         {
             return IndexOf(value) != -1;
         }
@@ -64,9 +64,9 @@ namespace Lists.ListLogic
         /// </summary>
         /// <param name="value">gesuchter DataObject</param>
         /// <returns>Index oder -1, falls der DataObject nicht in der Liste ist</returns>
-        public int IndexOf(object value)
+        public int IndexOf(T value)
         {
-            Node tmp = Head;
+            Node<T> tmp = Head;
 
 
             for (int i = 0; i < Count; i++)
@@ -88,10 +88,10 @@ namespace Lists.ListLogic
         /// </summary>
         /// <param name="index">Einfügeposition</param>
         /// <param name="value">Einzufügender DataObject</param>
-        public void Insert(int index, object value)
+        public void Insert(int index, T value)
         {
 
-            Node newNode = new Node(value);
+            Node<T> newNode = new Node<T>(value);
 
             if (Head == null || (index == Count && index != 0))
             {
@@ -105,7 +105,7 @@ namespace Lists.ListLogic
             }
             else if (index < Count && index > 0)
             {
-                Node tmp = Head;
+                Node<T> tmp = Head;
                 for (int i = 1; i < index; i++)
                 {
                     tmp = tmp.Next;
@@ -152,7 +152,7 @@ namespace Lists.ListLogic
         /// <param name="index"></param>
         public void RemoveAt(int index)
         {
-            Node tmp = Head;
+            Node<T> tmp = Head;
             if (index < Count)
             {
 
@@ -180,7 +180,7 @@ namespace Lists.ListLogic
         /// </summary>
         /// <param name="index"></param>
         /// <returns></returns>
-        public object this[int index]
+        public T this[int index]
         {
             get
             {
@@ -190,7 +190,7 @@ namespace Lists.ListLogic
                 }
                 else
                 {
-                    Node tmp = Head;
+                    Node<T> tmp = Head;
                     for (int i = 0; i < index; i++)
                     {
                         tmp = tmp.Next;
@@ -221,7 +221,7 @@ namespace Lists.ListLogic
         public void CopyTo(Array array, int index)
         {
 
-            Node tmp = Head;
+            Node<T> tmp = Head;
             if (array.Length < (Count - index))
             {
                 for (int i = 0; i < array.Length; i++)
@@ -268,7 +268,7 @@ namespace Lists.ListLogic
                 int count = 0;
                 if (Head != null)
                 {
-                    Node tmp = Head;
+                    Node<T> tmp = Head;
                     count++;
                     while (tmp.Next != null)
                     {
@@ -301,7 +301,7 @@ namespace Lists.ListLogic
         public IEnumerator GetEnumerator()
         {
 
-            return new MyLIstEnumerable(Head);
+            return new MyLIstEnumerable<T>(Head);
         }
 
         public 
