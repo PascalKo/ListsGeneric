@@ -10,10 +10,7 @@ namespace Lists.ListLogic
     /// </summary>
     public class MyList<T> : IList<T>
     {
-        public MyList()
-        {
-        }
-
+        
         Node<T> Head { get; set; }
 
 

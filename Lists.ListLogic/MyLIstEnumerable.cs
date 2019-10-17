@@ -34,11 +34,11 @@ namespace Lists.ListLogic
             }
         }
 
-        object IEnumerator.Current => throw new NotImplementedException();
+        object IEnumerator.Current => _pos.DataObject;
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            
         }
 
         public bool MoveNext()
