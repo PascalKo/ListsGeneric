@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Lists.ListLogic
 {
@@ -7,8 +8,12 @@ namespace Lists.ListLogic
     /// Die Liste verwaltet beliebige Elemente und implementiert
     /// das IList-Interface und damit auch ICollection und IEnumerable
     /// </summary>
-    public class MyList<T> : IList
+    public class MyList<T> : IList<T>
     {
+        public MyList()
+        {
+        }
+
         Node<T> Head { get; set; }
 
 
@@ -137,7 +142,7 @@ namespace Lists.ListLogic
         /// zumindest ein mal gibt.
         /// </summary>
         /// <param name="value">zu entfernender DataObject</param>
-        public void Remove(object value)
+        public void Remove(T value)
         {
             if (Contains(value))
             {
@@ -304,6 +309,25 @@ namespace Lists.ListLogic
             return new MyLIstEnumerable<T>(Head);
         }
 
-        public 
+        void ICollection<T>.Add(T item)
+        {
+            this.Add(item);
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            this.CopyTo(array, arrayIndex);
+        }
+
+        bool ICollection<T>.Remove(T item)
+        {
+            this.Remove(item);
+            return Contains(item);
+        }
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator()
+        {
+           return new MyLIstEnumerable<T>(Head);
+        }
     }
 }

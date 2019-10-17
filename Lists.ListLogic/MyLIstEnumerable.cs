@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
+
 
 namespace Lists.ListLogic
 {
-    class MyLIstEnumerable<T> : IEnumerator
+    class MyLIstEnumerable<T> : IEnumerator<T>
     {
         private Node<T> _data;
         private Node<T> _pos = null;
@@ -18,7 +18,7 @@ namespace Lists.ListLogic
             _data = data;
         }
 
-        public object Current
+        public T Current
         {
             get
             {
@@ -34,7 +34,12 @@ namespace Lists.ListLogic
             }
         }
 
-    
+        object IEnumerator.Current => throw new NotImplementedException();
+
+        public void Dispose()
+        {
+            throw new NotImplementedException();
+        }
 
         public bool MoveNext()
         {
