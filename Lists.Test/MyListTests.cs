@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Text;
+using Lists.Entity;
 using Lists.ListLogic;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
@@ -505,6 +506,113 @@ namespace Lists.Test
             var value = list[0];
             //Assert
             Assert.AreEqual(3, value);
+        }
+
+        public void Sort_SortOnAgeDescanding_ShouldBeSortInCorrectorder()
+        {
+            MyList<Person> list = new MyList<Person>();
+            Person[] target = new Person[6];
+            Person person1 = new Person("Kurt", "Biedermann", 25);
+            Person person2 = new Person("Dominik", "Klein", 14);
+            Person person3 = new Person("Manfred", "Rainer", 33);
+            Person person4 = new Person("Florian", "Kurz", 31);
+            Person person5 = new Person("Max", "Mustermann", 55);
+            Person person6 = new Person("Simon", "Aichmayr", 24);
+            Person[] expected =
+            {
+                person5,
+                person3,
+                person4,
+                person1,
+                person6,
+                person2
+            };
+
+            list.Add(person4);
+            list.Add(person3);
+            list.Add(person1);
+            list.Add(person6);
+            list.Add(person2);
+            list.Add(person5);
+
+
+            MyList<Person>.Sort(list, Person.ComparePersonOnAgeAscanding());
+            list.CopyTo(target, 0);
+            CollectionAssert.AreEqual(target, expected);
+        }
+        [TestMethod]
+        public void Sort_SortOnFirstNameAscanding_ShouldBeSortInCorrectorder()
+        {
+            MyList<Person> list = new MyList<Person>();
+            Person[] target = new Person[6];
+            Person person1 = new Person("Kurt", "Biedermann", 25);
+            Person person2 = new Person("Dominik", "Klein", 14);
+            Person person3 = new Person("Manfred", "Rainer", 33);
+            Person person4 = new Person("Florian", "Kurz", 31);
+            Person person5 = new Person("Max", "Mustermann", 55);
+            Person person6 = new Person("Simon", "Aichmayr", 24);
+            Person[] expected =
+            {
+                person6,
+                person1,
+                person2,
+                person4,
+                person5,
+                person3
+            };
+
+            list.Add(person4);
+            list.Add(person3);
+            list.Add(person1);
+            list.Add(person6);
+            list.Add(person2);
+            list.Add(person5);
+
+            MyList<Person>.Sort(list, Person.ComparePersonOnFirstNameAscandig());
+            list.CopyTo(target, 0);
+            CollectionAssert.AreEqual(target, expected);
+        }
+        [TestMethod]
+        public void Sort_SortOnLastNameAscanding_ShouldBeSortInCorrectorder()
+        {
+            MyList<Person> list = new MyList<Person>();
+            Person[] target = new Person[6];
+            Person person1 = new Person("Kurt", "Biedermann", 25);
+            Person person2 = new Person("Dominik", "Klein", 14);
+            Person person3 = new Person("Manfred", "Rainer", 33);
+            Person person4 = new Person("Florian", "Kurz", 31);
+            Person person5 = new Person("Max", "Mustermann", 55);
+            Person person6 = new Person("Simon", "Aichmayr", 24);
+            Person[] expected =
+            {
+                person6,
+                person1,
+                person2,
+                person4,
+                person5,
+                person3
+            };
+
+            list.Add(person4);
+            list.Add(person3);
+            list.Add(person1);
+            list.Add(person6);
+            list.Add(person2);
+            list.Add(person5);
+
+            MyList<Person>.Sort(list);
+            list.CopyTo(target, 0);
+            CollectionAssert.AreEqual(target, expected);
+        }
+        [TestMethod]
+        public void Sort_InvalidSort_ShouldReturnNull()
+        {
+            MyList<Person> list = new MyList<Person>();
+            Person[] target = new Person[6];
+            Person[] expected = new Person[6];
+            MyList<Person>.Sort(list, null);
+            list.CopyTo(target, 0);
+            CollectionAssert.AreEqual(target, expected);
         }
 
 

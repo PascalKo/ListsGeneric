@@ -306,6 +306,47 @@ namespace Lists.ListLogic
             return new MyLIstEnumerable<T>(Head);
         }
 
+        public static void Sort(MyList<T> list, IComparer comparer)
+        {
+            if (list.Head != null)
+            {
+                int result = 0;
+                for (int i = 0; i < list.Count; i++)
+                {
+                    for (int j = 0; j < list.Count - 1; j++)
+                    {
+                        IComparable object1 = list[j] as IComparable;
+                        IComparable object2 = list[j + 1] as IComparable;
+
+                        if (object1 == null)
+                            throw new ArgumentNullException(nameof(object1));
+                        if (object2 == null)
+                            throw new ArgumentNullException(nameof(object2));
+
+                        if (comparer != null)
+                        {
+                            result = comparer.Compare(object1, object2);
+                        }
+                        else
+                        {
+                            result = object1.CompareTo(object2);
+                        }
+                        if (result > 0)
+                        {
+                            T tmp = list[j];
+                            list[j] = list[j + 1];
+                            list[j + 1] = tmp;
+                        }
+                    }
+                }
+            }
+        }
+
+        public static void Sort(MyList<T> list)
+        {
+            Sort(list, null);
+        }
+
         void ICollection<T>.Add(T item)
         {
             this.Add(item);
